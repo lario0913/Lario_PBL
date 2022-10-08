@@ -7,6 +7,9 @@ A technology stack is a set of frameworks and tools used to develop a software p
 - Connect to ec2 instance by running:
   
   `ssh -i <private-key-name>.pem ubuntu@<Public-IP-address>`
+  
+  ![prerequisite](https://user-images.githubusercontent.com/26335055/194688682-79dd59a7-0932-4d2d-bfa3-132bca08ce71.png)
+
 ### Step 1: Installing Apache Server
 - Update the list of packages in the package manager
 
@@ -21,6 +24,9 @@ A technology stack is a set of frameworks and tools used to develop a software p
 - Open a web browser to show how the Apache HTTP server can respond to requests from the Internet.
 
   `http://<Public-IP-Address>:80`
+  
+  ![web page](https://user-images.githubusercontent.com/26335055/194688763-47f88a6c-40b7-416b-99cf-7a8de90f8e7a.png)
+
 ### Step 2: Installing MySQL in the Apache Server
 - Use ‘apt’ to acquire and install this MySql software
 
@@ -34,6 +40,9 @@ A technology stack is a set of frameworks and tools used to develop a software p
 - Change default password  from “Password.1” to any convenient password after which you press yes to all the questions that follows
 
   `sudo mysql_secure_installation`
+  
+  ![mysql-1](https://user-images.githubusercontent.com/26335055/194688806-2a9d6525-6244-4751-877c-30504c30182b.png)
+
 -	When you’re finished, test if you’re able to log in to the MySQL console by typing:
   
   `sudo mysql -p`
@@ -93,6 +102,9 @@ PHP will help to process the code to display dynamic content to the end user. Al
 -	Now go to your browser and try to open your website URL using IP address
 
   `http://<Public-IP-Address>:80`
+  
+  ![indexpage](https://user-images.githubusercontent.com/26335055/194688849-ae4ed762-fa69-42d2-9a2b-5702f6c42f81.png)
+
 ### Step 5: Enabling PHP on the website
 -	Edit the /etc/apache2/mods-enabled/dir.conf file and change the order in which the index.php file is listed within the DirectoryIndex directive:
 
