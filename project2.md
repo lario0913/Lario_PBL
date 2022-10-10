@@ -14,7 +14,8 @@ LEMP is an open-source web application stack used to develop web applications. T
 
 - After server has been installed succefully, you can access it locally using `curl http://127.0.0.1:80` which returns an output of strange formmated text.
 - Test if the Nginx server can responds to request on the internet by opening a web browser and access with 'http://<Public-IP-Address>:80`
-  ![nginx](https://user-images.githubusercontent.com/26335055/194863496-9e3a7ace-830c-410e-8a12-e6d298af7daf.png)
+  ![nginx](https://user-images.githubusercontent.com/26335055/194863496-9e3a7ace-830c-410e-8a12-e6d298af7daf.png)![lempPhPPage](https://user-images.githubusercontent.com/26335055/194879255-2e0f0bdd-e387-4bc5-a334-c40b8a7bb4bb.png)
+
 
  ## Step 2: Install MySQL
   MySQL will be installed as the Database Management System in the server to allow the storage and managing of data.
@@ -76,6 +77,18 @@ LEMP is an open-source web application stack used to develop web applications. T
   - Website is now active but there's need to create a html file in the web root (/var/www/projecLEMP)
   `sudo echo 'Hello LEMP from hostname' $(curl -s http://169.254.169.254/latest/meta-data/public-hostname) 'with public IP' $(curl -s http://169.254.169.254/latest/meta-data/public-ipv4) > /var/www/projectLEMP/index.html`
   - Open the website URL using the IP address
-  'http://<Public-IP-Address>:80'
+  `http://<Public-IP-Address>:80`
 ![lempPage](https://user-images.githubusercontent.com/26335055/194876390-8c4daf07-6d8e-416f-9582-bcdcdd86633b.png)
 
+  ## Step 5: Testing PHP with Nginx
+  - Create a new PHP file in the document root
+  `sudo nano /var/www/projectLEMP/info.php`
+  - Paste this line of code
+  `<?php
+  phpinfo();`
+ - Accesss the test page using
+`http://`server_domain_or_IP`/info.php`
+![lempPhPPage](https://user-images.githubusercontent.com/26335055/194879330-85804dd3-07fb-4323-97ca-bc15212eea9f.png)
+
+- Remove the PHP file for security purposes
+  `sudo rm /var/www/your_domain/info.php`
