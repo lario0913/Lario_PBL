@@ -28,3 +28,54 @@ LEMP is an open-source web application stack used to develop web applications. T
   PHP is needed for the processing of code and the generation of dynamic content for the Nginx web server. Unlike APACHE that embed PHP interpreter in each request, NGINX requires an external program to handle PHP processing and act as a bridge between the PHP interpreter itself and the web server. This allows for a better overall performance. 
   - Install php-fpm (PHP fastCGI process manager) and php-mysql and core PHP will be installed alongside
   `sudo apt install php-fpm php-mysql`
+  
+  ## Step 4: Configuring Nginx to use PHP Processor
+  - Create a root directory for the domain with `sudo mkdir /var/www/projectLEMP`
+  - Assign ownership of the directory with the $USER environment variable, which will reference the current system user:
+  `sudo chown -R $USER:$USER /var/www/projectLEMP`
+  - Open a new configuration file in Nginx’s sites-available directory using your preferred command-line editor. Used Nano
+  `sudo nano /etc/nginx/sites-available/projectLEMP`
+  - The command above will create a new blank file where you will paste the configuration below into.
+  
+  ```
+    #/etc/nginx/sites-available/projectLEMP
+
+      server {
+          listen 80;
+          server_name projectLEMP www.projectLEMP;
+          root /var/www/projectLEMP;
+
+          index index.html index.htm index.php;
+
+          location / {
+              try_files $uri $uri/ =404;
+          }
+
+          location ~ \.php$ {
+              include snippets/fastcgi-php.conf;
+              fastcgi_pass unix:/var/run/php/php8.1-fpm.sock;
+           }
+
+          location ~ /\.ht {
+              deny all;
+          }
+
+      }
+  ```
+  
+  - Activate the configuration by linking to the config file from Nginx’s sites-enabled directory:
+  `sudo ln -s /etc/nginx/sites-available/projectLEMP /etc/nginx/sites-enabled/`
+  - Test the configuration for syntax errors by typing
+  `sudo nginx -t`
+  ![lempError](https://user-images.githubusercontent.com/26335055/194876530-73c947cf-7272-40fe-b075-b772f79b1fa2.png)
+
+  - Disable default Nginx host that is currently configured to listen on port 80 by running:
+  `sudo unlink /etc/nginx/sites-enabled/default`
+  - Reload Nginx to apply changes
+  `sudo systemctl reload nginx`
+  - Website is now active but there's need to create a html file in the web root (/var/www/projecLEMP)
+  `sudo echo 'Hello LEMP from hostname' $(curl -s http://169.254.169.254/latest/meta-data/public-hostname) 'with public IP' $(curl -s http://169.254.169.254/latest/meta-data/public-ipv4) > /var/www/projectLEMP/index.html`
+  - Open the website URL using the IP address
+  'http://<Public-IP-Address>:80'
+![lempPage](https://user-images.githubusercontent.com/26335055/194876390-8c4daf07-6d8e-416f-9582-bcdcdd86633b.png)
+
