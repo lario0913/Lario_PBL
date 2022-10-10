@@ -15,3 +15,13 @@ LEMP is an open-source web application stack used to develop web applications. T
 - After server has been installed succefully, you can access it locally using `curl http://127.0.0.1:80` which returns an output of strange formmated text.
 - Test if the Nginx server can responds to request on the internet by opening a web browser and access with 'http://<Public-IP-Address>:80`
   ![nginx](https://user-images.githubusercontent.com/26335055/194863496-9e3a7ace-830c-410e-8a12-e6d298af7daf.png)
+
+ ## Step 2: Installing MySQL
+  MySQL will be installed as the Database Management System in the server to allow the storage and managing of data.
+  - Use apt to install MySQL to install the software `sudo apt install mysql-server`
+  - Login into MySQL console with 'sudo mysql`
+  - Set up password (PassWord.1) for the root user as a default way of authentication 
+    `ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY 'PassWord.1';`
+  - Exit MySQL console with 'exit`
+  
+  
