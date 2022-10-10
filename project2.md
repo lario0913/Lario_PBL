@@ -16,7 +16,7 @@ LEMP is an open-source web application stack used to develop web applications. T
 - Test if the Nginx server can responds to request on the internet by opening a web browser and access with 'http://<Public-IP-Address>:80`
   ![nginx](https://user-images.githubusercontent.com/26335055/194863496-9e3a7ace-830c-410e-8a12-e6d298af7daf.png)
 
- ## Step 2: Installing MySQL
+ ## Step 2: Install MySQL
   MySQL will be installed as the Database Management System in the server to allow the storage and managing of data.
   - Use apt to install MySQL to install the software `sudo apt install mysql-server`
   - Login into MySQL console with 'sudo mysql`
@@ -24,4 +24,7 @@ LEMP is an open-source web application stack used to develop web applications. T
     `ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY 'PassWord.1';`
   - Exit MySQL console with 'exit`
   
-  
+  ## Step 3: Install PHP
+  PHP is needed for the processing of code and the generation of dynamic content for the Nginx web server. Unlike APACHE that embed PHP interpreter in each request, NGINX requires an external program to handle PHP processing and act as a bridge between the PHP interpreter itself and the web server. This allows for a better overall performance. 
+  - Install php-fpm (PHP fastCGI process manager) and php-mysql and core PHP will be installed alongside
+  `sudo apt install php-fpm php-mysql`
