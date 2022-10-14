@@ -235,3 +235,9 @@ A database where we will store our data. For this we will make use of mLab. mLab
 
   - Create a DELETE request as in the image below. To delete a task – you need to send its ID as a part of DELETE request.
   ![postmandelete](https://user-images.githubusercontent.com/26335055/195786939-1d80103c-76ae-4460-a0a3-36106b1576eb.png)
+
+## Step 5: Frontend Creation
+  - Navigate to the Tool directory adnd run the command below which will create a client folder in the Todo directory.
+  - Install concurrently and nodemon
+  - In Todo folder open the package.json file. Change the highlighted part of the below screenshot and replace with the code below.
+  - Configure Proxy in the client's package.json file
