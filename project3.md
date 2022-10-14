@@ -557,6 +557,6 @@ A database where we will store our data. For this we will make use of mLab. mLab
   - Go to Todo directory
   
   `cd ../..`
-  - run the code below and access on http://<public id>:3000
+  - run the code below and access on http://publicid:3000
   
   `npm run dev`
