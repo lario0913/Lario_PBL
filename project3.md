@@ -238,6 +238,94 @@ A database where we will store our data. For this we will make use of mLab. mLab
 
 ## Step 5: Frontend Creation
   - Navigate to the Tool directory adnd run the command below which will create a client folder in the Todo directory.
+  
+  `npx create-react-app client`
   - Install concurrently and nodemon
+  
+  `npm install concurrently --save-dev`
+  `npm install nodemon --save-dev`
   - In Todo folder open the package.json file. Change the highlighted part of the below screenshot and replace with the code below.
+  
+  ```
+  "scripts": {
+  "start": "node index.js",
+  "start-watch": "nodemon index.js",
+  "dev": "concurrently \"npm run start-watch\" \"cd client && npm start\""
+  },
+  ```
+  
+  ![shell](https://user-images.githubusercontent.com/26335055/195845824-7b4b2a69-b10f-4ce0-8552-95fa604e3da2.png)
   - Configure Proxy in the client's package.json file
+    - Change directory to ‘client’ `cd client`
+    - Open the package.json file `vim package.json`
+    - Add the key value pair in the package.json file `"proxy": "http://localhost:5000"`.
+    - Run your app `npm run dev` and access at `http://<public id>:3000`
+  
+ - Creating the React Components
+    - From Todo move to src directory
+  
+    `cd client/src`
+    - Create a components folder and move into it
+  
+    `mkdir components`
+    `cd components`
+    - Inside ‘components’ directory create three files Input.js, ListTodo.js and Todo.js
+  
+    `touch Input.js ListTodo.js Todo.js`
+    - Open Input.js file and paste the code the follows into it
+  
+    `Vim Input.js`
+    ```
+      import React, { Component } from 'react';
+      import axios from 'axios';
+
+      class Input extends Component {
+
+      state = {
+      action: ""
+      }
+
+      addTodo = () => {
+      const task = {action: this.state.action}
+
+          if(task.action && task.action.length > 0){
+            axios.post('/api/todos', task)
+              .then(res => {
+                if(res.data){
+                  this.props.getTodos();
+                  this.setState({action: ""})
+                }
+              })
+              .catch(err => console.log(err))
+          }else {
+            console.log('input field required')
+          }
+
+      }
+
+      handleChange = (e) => {
+      this.setState({
+      action: e.target.value
+      })
+      }
+
+      render() {
+      let { action } = this.state;
+      return (
+      <div>
+      <input type="text" onChange={this.handleChange} value={action} />
+      <button onClick={this.addTodo}>add todo</button>
+      </div>
+      )
+      }
+      }
+
+      export default Input
+    ```
+    - Move back into client folder
+  
+    `cd ../..`
+    - Install Axios
+    
+    `npm install axios`
+  
