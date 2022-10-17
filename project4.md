@@ -125,4 +125,65 @@ var bookSchema = mongoose.Schema( {
 var Book = mongoose.model('Book', bookSchema);
 module.exports = mongoose.model('Book', bookSchema);
 ```
-- 
+
+## Step 4: Accessing the routes with AngularJS
+AngularJS provides a web framework for creating dynamic views in your web applications. In this project, AngularJS is sed to connect our web page with Express and perform actions on our book register.
+- In the Books folder, create a new folder named public and move into it `mkdir public && cd public`
+- Add a file name script.js and paste the code below into it. `vim script.js
+
+```
+var app = angular.module('myApp', []);
+app.controller('myCtrl', function($scope, $http) {
+  $http( {
+    method: 'GET',
+    url: '/book'
+  }).then(function successCallback(response) {
+    $scope.books = response.data;
+  }, function errorCallback(response) {
+    console.log('Error: ' + response);
+  });
+  $scope.del_book = function(book) {
+    $http( {
+      method: 'DELETE',
+      url: '/book/:isbn',
+      params: {'isbn': book.isbn}
+    }).then(function successCallback(response) {
+      console.log(response);
+    }, function errorCallback(response) {
+      console.log('Error: ' + response);
+    });
+  };
+  $scope.add_book = function() {
+    var body = '{ "name": "' + $scope.Name + 
+    '", "isbn": "' + $scope.Isbn +
+    '", "author": "' + $scope.Author + 
+    '", "pages": "' + $scope.Pages + '" }';
+    $http({
+      method: 'POST',
+      url: '/book',
+      data: body
+    }).then(function successCallback(response) {
+      console.log(response);
+    }, function errorCallback(response) {
+      console.log('Error: ' + response);
+    });
+  };
+});
+```
+- Create an index.html file inside the public folder and paste the code below into it 
+
+`vim index.html`
+- Change the directory back up to Books `cd ..`
+- Start the server by running `node server.js`
+- The server is now up and running, can connect it via port 3300 and can also launch a separate Putty or SSH console to test what curl command returns locally.
+
+`curl -s http://localhost:3300`
+- This can also be accessed from the internet but one need to open TCP port 3300 in your AWS Web Console for your EC2 Instance.
+
+![inbound](https://user-images.githubusercontent.com/26335055/196117793-fd8d9eb4-0feb-406e-a211-6e40bfaf28d5.png)
+
+- The Web Book Register Application will look like in browser
+
+![book](https://user-images.githubusercontent.com/26335055/196117856-5e6a01f8-7226-46e4-b766-96ac3411afd6.png)
+
+
