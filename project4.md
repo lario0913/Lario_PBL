@@ -18,7 +18,7 @@ In this project, I am going to implement a simple Book Register web form using M
 
   `sudo apt install -y nodejs`
 
-## Installing Mongodb
+## Step 2: Installing Mongodb
 MongoDB stores data in flexible, JSON-like documents. In this project, I will adding book records to MongoDB that contain book name, isbn number, author, and number of pages.
 - Import public key
 
@@ -52,4 +52,77 @@ sudo aptitude install npm
       console.log('Server up: http://localhost:' + app.get('port'));
   });
   ```
+## Step 3: Installing Express and Setting up Routes to the server
+Express will be used to pass book information to and from our MongoDB database and Mongoose package well be used to establish a schema for the database to store data of our book register.
+- Start by installing Express and Mongoose
 
+`sudo npm install express mongoose`
+- In Books folder, create a folder names apps and move into the folder
+
+`mkdir apps && cd apps`
+- Create routes.js file and pase the code below into it
+
+`vi routes.js`
+
+```
+var Book = require('./models/book');
+module.exports = function(app) {
+  app.get('/book', function(req, res) {
+    Book.find({}, function(err, result) {
+      if ( err ) throw err;
+      res.json(result);
+    });
+  }); 
+  app.post('/book', function(req, res) {
+    var book = new Book( {
+      name:req.body.name,
+      isbn:req.body.isbn,
+      author:req.body.author,
+      pages:req.body.pages
+    });
+    book.save(function(err, result) {
+      if ( err ) throw err;
+      res.json( {
+        message:"Successfully added book",
+        book:result
+      });
+    });
+  });
+  app.delete("/book/:isbn", function(req, res) {
+    Book.findOneAndRemove(req.query, function(err, result) {
+      if ( err ) throw err;
+      res.json( {
+        message: "Successfully deleted the book",
+        book: result
+      });
+    });
+  });
+  var path = require('path');
+  app.get('*', function(req, res) {
+    res.sendfile(path.join(__dirname + '/public', 'index.html'));
+  });
+};
+```
+- In the apps folder, create another folder named models and moved into it
+
+`mkdir models && cd models`
+- create a file named book.js and paste the code below into it
+
+`vi book.js`
+
+```
+var mongoose = require('mongoose');
+var dbHost = 'mongodb://localhost:27017/test';
+mongoose.connect(dbHost);
+mongoose.connection;
+mongoose.set('debug', true);
+var bookSchema = mongoose.Schema( {
+  name: String,
+  isbn: {type: String, index: true},
+  author: String,
+  pages: Number
+});
+var Book = mongoose.model('Book', bookSchema);
+module.exports = mongoose.model('Book', bookSchema);
+```
+- 
