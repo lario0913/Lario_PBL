@@ -83,7 +83,25 @@ For this projects, we will launch our ec2 on a very popular distribution called 
 
       `sudo rsync -av /var/log/. /home/recovery/logs/`
 20.   Mount /var/log on logs-lv logical volume. `sudo rsync -av /home/recovery/logs/. /var/log`
-21.   
+
+## Step 2: Update the /etc/fstab File
+1. Get the UUID of the device as it will be used to update the /etc/fstab. Run `sudo blkid`
+
+![6copyid](https://user-images.githubusercontent.com/26335055/198158064-2724485e-fecb-420e-b5f8-e9e637859cee.png)
+2. Update /etc/fstab in this format using your own UUID and rememeber to remove the leading and ending quotes. `sudo vi /etc/fstab`
+
+      ![6saveid](https://user-images.githubusercontent.com/26335055/198158283-8372b303-b1ed-493d-b7f6-c471b6fdfd8d.png)
+
+3. Test the configuration and reload the daemon
+      
+      ```
+       sudo mount -a
+       sudo systemctl daemon-reload
+      ```
+4. Verify your setup by running `df -h`, output must look like this:
+
+![6output](https://user-images.githubusercontent.com/26335055/198158216-c90b5173-a95b-4abb-a96e-a14de19319ee.png)
+
 
 
 
