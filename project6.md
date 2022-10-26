@@ -44,3 +44,20 @@ For this projects, we will launch our ec2 on a very popular distribution called 
 
  ![wp-partitopn](https://user-images.githubusercontent.com/26335055/198117126-e1c18d76-bab1-4940-9c24-f89c202b06c5.png)
 
+7.    Install lvm2 package using `sudo yum install lvm2` and Run `sudo lvmdiskscan` command to check for available partitions.
+8.    Use pvcreate utility to mark each of 3 disks as physical volumes (PVs) to be used by LVM
+
+      ```
+      sudo pvcreate /dev/xvdf1
+      sudo pvcreate /dev/xvdg1
+      sudo pvcreate /dev/xvdh1
+      ```
+9.    Verify that your Physical volume has been created successfully by running sudo pvs
+10.   Use vgcreate utility to add all 3 PVs to a volume group (VG). Name the VG webdata-vg
+
+      `sudo vgcreate webdata-vg /dev/xvdh1 /dev/xvdg1 /dev/xvdf1`
+11.   Verify that your VG has been created successfully by running `sudo vgs`
+
+![vgs](https://user-images.githubusercontent.com/26335055/198135460-3d075eb0-52dd-4813-91bd-ef59f2d0991a.png)
+
+12.   
