@@ -149,3 +149,17 @@ Repeat the same steps as for the Web Server, but instead of apps-lv create db-lv
         sudo setsebool -P httpd_can_network_connect=1
       ```
 
+## Step 5: Install MySQL on your DB Server EC2
+1.    Update and install mysql server
+      
+      ```
+      sudo yum update
+      sudo yum install mysql-server
+      ```
+2.    Verify that the service is up and running by using `sudo systemctl status mysqld`
+3.    If Mysql is not running, restart the service and enable it so it will be running even after reboot:
+
+      ```
+      sudo systemctl restart mysqld
+      sudo systemctl enable mysqld
+      ```
