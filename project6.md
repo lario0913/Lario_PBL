@@ -102,8 +102,9 @@ For this projects, we will launch our ec2 on a very popular distribution called 
 
 ![6output](https://user-images.githubusercontent.com/26335055/198158216-c90b5173-a95b-4abb-a96e-a14de19319ee.png)
 
-
-
+## Step 3: Prepare the Database Server
+Launch a second RedHat EC2 instance that will have a role – ‘DB Server’
+Repeat the same steps as for the Web Server, but instead of apps-lv create db-lv and mount it to /db directory instead of /var/www/html/.
 
 
 
